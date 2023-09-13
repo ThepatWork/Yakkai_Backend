@@ -91,6 +91,10 @@ app.delete('/deleteFRAUD_REPORT/:id', deleteFRAUD_REPORT);
 app.get('/getFRAUD_REPORT_Id/:id', getFRAUD_REPORT_Id);
 app.get('/listFRAUD_REPORT', listFRAUD_REPORT)
 
+app.get('/CheckServer', (req, res) => {
+  res.status(200).send('OK');
+});
+
 // Middleware สำหรับจัดการข้อผิดพลาดในรูปแบบ JSON response
 app.use((err, req, res, next) => {
   if (err.name === 'ValidationError') {
