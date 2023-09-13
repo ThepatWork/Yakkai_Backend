@@ -36,10 +36,8 @@ function sendEmail(Code_verify_Email, To) {
     transporter.sendMail(Email, (error, info) => {
       if (error) {
         console.error('Error sending email:', error);
-        res.status(500).json({message:'ส่ง email ไม่สำเร็จ -->'+To });
       } else {
         console.log('Email sent:', info.response);
-        res.status(200).json({message:'ส่ง Email -->'+To });
       }
     });
   } catch (error) {
