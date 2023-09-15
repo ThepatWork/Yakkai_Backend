@@ -136,13 +136,12 @@ async function User_Verify_Email(req, res) {
       console.log('พบอีเมลซ้ำ --> ' + email);
       throw new Error(`ขออภัย ${email} ถูกใช้งานแล้ว`);
     } else {
-      // ส่งอีเมลยืนยัน
-      await sendEmail(Code_verify_Email, email);
       // เพิ่มข้อมูลเข้าตาราง
       await TP_VerifyEmail(email, Code_verify_Email);
+      // ส่งอีเมลยืนยัน
+      await sendEmail(Code_verify_Email, email);
       console.log('============================================================');
       res.status(200).json({ status: true, message: `อีเมลถูกสร้างและอยู่ระหว่างการยืนยัน` });
-      console.log(' อีเมลถูกสร้างและอยู่ระหว่างการยืนยัน ')
       console.log('============================================================');
     }
   } catch (error) {
