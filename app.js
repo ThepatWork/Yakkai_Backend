@@ -4,10 +4,10 @@ const app = express();
 const port = 8000;
 
 const { Token } = require('./controllers/Token');
-const { IFTTT_NewProduct, IFTTT_NewUser } = require('./controllers/IFTTT');
+const { IFTTT_NewProduct, IFTTT_NewUser, IFTTT_NewAds, IFTTT_NewReport } = require('./controllers/IFTTT');
 const { connectDatabase, closeDatabase } = require('./database/Database.js');
 const { TP_VerifyEmail_Check_Pass } = require('./controllers/TP_VerifyEmail');
-const { changePassword, Every_Email} = require('./controllers/MailController');
+const { changePassword, Every_Email } = require('./controllers/MailController');
 const { Login, resetPass, deleteLogin } = require('./controllers/LoginController');
 const { addDataWeb, listDataWebs, updateDataWeb, deleteDataWeb, getDataWebById } = require('./controllers/datawebController');
 const { addTopBanner, listTopBanners, updateTopBanner, deleteTopBanner, getTopBannerById } = require('./controllers/TopBannerController');
@@ -16,7 +16,7 @@ const { addSideBanner, listSideBanners, updateSideBanner, deleteSideBanner, getS
 const { addFRAUD_REPORT, listFRAUD_REPORT, updateFRAUD_REPORT, deleteFRAUD_REPORT, getFRAUD_REPORT_Id } = require('./controllers/Fraud_Report');
 const { addCategoryProduct, listCategoryProducts, updateCategoryProduct, deleteCategoryProduct, getCategoryProductById } = require('./controllers/CategoryProductController');
 const { addUser, listUsers, updateUser, deleteUser, getUserById, getUserByEmail, User_Verify_Email, addReview, List_admin, addAdmin } = require('./controllers/userController');
-const { addProduct, listProducts, updateProduct, deleteProduct, getProductById,  getProductByName, getProductByCATEGORY, getProductTYPE ,getProductByMultipleConditions, ListProduct_for_one_user,updateProductByAdmin} = require('./controllers/productController');
+const { addProduct, listProducts, updateProduct, deleteProduct, getProductById, getProductByName, getProductByCATEGORY, getProductTYPE, getProductByMultipleConditions, ListProduct_for_one_user, updateProductByAdmin } = require('./controllers/productController');
 
 app.use(express.json());
 app.use(cors());
@@ -24,7 +24,8 @@ app.use(cors());
 // IFTTT API
 app.post('/IFTTT_NewProduct', IFTTT_NewProduct);
 app.post('/IFTTT_NewUser', IFTTT_NewUser);
-
+app.post('/IFTTT_NewAds', IFTTT_NewAds);
+app.post('/IFTTT_NewReport', IFTTT_NewReport);
 // System API
 app.post('/Every_Email', Every_Email); //ส่ง email โดยจะรับค่าต่างผ่าน body
 app.post('/sendEmaiChangePassword/:email', changePassword); //เมื่อใช้จะทำการส่ง email เพิ่มขอเปลี่ยนรหัสผ่าน
@@ -32,8 +33,8 @@ app.put('/resetPass', resetPass); //เอาข้อมูลใหม่ม�
 app.get('/Check_Token', Token); //ตรวจสอบ Token ว่าใช้ได้อยู่ไหม
 app.post('/TP_VerifyEmail', TP_VerifyEmail_Check_Pass); //ตรวจสอบรหัส Verify ที่ส่งไปยัง mail
 app.post('/User_Verify_Email', User_Verify_Email);
-app.post('/Login', Login); 
-app.delete('/deleteLogin/:id', deleteLogin); 
+app.post('/Login', Login);
+app.delete('/deleteLogin/:id', deleteLogin);
 // User API
 app.post('/addReview', addReview);
 app.post('/createUser', addUser);
@@ -56,7 +57,7 @@ app.get('/listProduct', listProducts)
 app.get('/getProductName/:Name', getProductByName);
 app.get('/getProductByCATEGORY/:C', getProductByCATEGORY);
 app.get('/getProductTYPE/:T', getProductTYPE);
-app.post('/getProductByMultipleConditions',getProductByMultipleConditions);
+app.post('/getProductByMultipleConditions', getProductByMultipleConditions);
 //Dataweb API
 app.post('/createDataWeb', addDataWeb);
 app.put('/updateDataWeb/:id', updateDataWeb);
